@@ -1,0 +1,96 @@
+FUNCTION max :
+PARAM maxx
+PARAM maxy
+IF maxx > maxy GOTO label0
+GOTO label1
+LABEL label0 :
+RETURN maxx
+LABEL label1 :
+RETURN maxy
+FUNCTION min :
+PARAM minx
+PARAM miny
+IF minx < miny GOTO label2
+GOTO label3
+LABEL label2 :
+RETURN minx
+LABEL label3 :
+RETURN miny
+FUNCTION main :
+DEC A 40
+t0 := &A + #0
+*t0 := #2
+t2 := #0 - #1
+t1 := &A + #4
+*t1 := t2
+t3 := &A + #8
+*t3 := #1
+t4 := &A + #12
+*t4 := #0
+t5 := &A + #16
+*t5 := #2
+t7 := #0 - #10
+t6 := &A + #20
+*t6 := t7
+t8 := &A + #24
+*t8 := #4
+t10 := #0 - #2
+t9 := &A + #28
+*t9 := t10
+t12 := #0 - #1
+t11 := &A + #32
+*t11 := t12
+t13 := &A + #36
+*t13 := #4
+t14 := &A + #0
+maxP := *t14
+t15 := &A + #0
+localMax := *t15
+t16 := &A + #0
+localMin := *t16
+i := #1
+LABEL label4 :
+IF i < #10 GOTO label5
+GOTO label6
+LABEL label5 :
+tmpLocalMax := localMax
+t19 := i * #4
+t18 := &A + t19
+t23 := i * #4
+t22 := &A + t23
+t21 := *t22 * localMax
+t26 := i * #4
+t25 := &A + t26
+t24 := *t25 * localMin
+ARG t24
+ARG t21
+t20 := CALL max
+ARG t20
+ARG *t18
+t17 := CALL max
+localMax := t17
+t29 := i * #4
+t28 := &A + t29
+t33 := i * #4
+t32 := &A + t33
+t31 := *t32 * tmpLocalMax
+t36 := i * #4
+t35 := &A + t36
+t34 := *t35 * localMin
+ARG t34
+ARG t31
+t30 := CALL min
+ARG t30
+ARG *t28
+t27 := CALL min
+localMin := t27
+ARG localMax
+ARG maxP
+t37 := CALL max
+maxP := t37
+t38 := i + #1
+i := t38
+GOTO label4
+LABEL label6 :
+WRITE maxP
+RETURN #0

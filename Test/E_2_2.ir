@@ -1,0 +1,80 @@
+FUNCTION get_m2nd :
+PARAM arr
+PARAM m
+t0 := *arr
+t2 := arr + #4
+IF *t0 >= *t2 GOTO label1
+LABEL label0 :
+t3 := *arr
+m1st := *t3
+t5 := arr + #4
+t4 := *t5
+m2nd := *t4
+GOTO label2
+LABEL label1 :
+t7 := arr + #4
+t6 := *t7
+m1st := *t6
+t8 := *arr
+m2nd := *t8
+LABEL label2 :
+mi := #2
+LABEL label3 :
+IF mi >= #20 GOTO label5
+LABEL label4 :
+t10 := mi * #4
+t11 := arr + t10
+t9 := *t11
+IF *t9 >= m1st GOTO label7
+LABEL label6 :
+m2nd := m1st
+t13 := mi * #4
+t14 := arr + t13
+t12 := *t14
+m1st := *t12
+GOTO label8
+LABEL label7 :
+t16 := mi * #4
+t17 := arr + t16
+t15 := *t17
+IF *t15 >= m2nd GOTO label8
+LABEL label9 :
+t19 := mi * #4
+t20 := arr + t19
+t18 := *t20
+m2nd := *t18
+LABEL label8 :
+t21 := mi + #1
+mi := t21
+GOTO label3
+LABEL label5 :
+RETURN m2nd
+FUNCTION main :
+DEC num 80
+i := #0
+LABEL label11 :
+IF i >= #20 GOTO label13
+LABEL label12 :
+t24 := i * i
+t25 := i * #2
+t23 := t24 + t25
+t22 := t23 + #4
+ti := t22
+t33 := i + #1
+t32 := ti / t33
+t31 := t32 * i
+t29 := ti - t31
+t30 := #2 * i
+t27 := t29 + t30
+t28 := i * #4
+t26 := &num + t28
+*t26 := t27
+t34 := i + #1
+i := t34
+GOTO label11
+LABEL label13 :
+ARG #20
+ARG &num
+t36 := CALL get_m2nd
+WRITE t36
+RETURN #0

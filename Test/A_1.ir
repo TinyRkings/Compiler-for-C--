@@ -1,0 +1,29 @@
+FUNCTION main :
+t0 := #0 - #10
+a := t0
+b := #30
+c := #20
+t2 := a * a
+t4 := #4 * b
+t3 := t4 * c
+t1 := t2 - t3
+x := t1
+WRITE x
+t6 := a + c
+a := t6
+t7 := a - c
+c := t7
+t8 := a - c
+a := t8
+t14 := a * #2
+t15 := c / #3
+t12 := t14 + t15
+t16 := a / b
+t13 := t16 * #2
+t10 := t12 + t13
+t17 := x / c
+t11 := t17 * #2
+t9 := t10 - t11
+b := t9
+WRITE b
+RETURN #0

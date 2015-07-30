@@ -1,0 +1,17 @@
+FUNCTION main :
+n := #12
+i := #1
+LABEL label0 :
+IF i >= n GOTO label2
+LABEL label1 :
+t1 := n / i
+t0 := t1 * i
+IF t0 != n GOTO label4
+LABEL label3 :
+WRITE i
+LABEL label4 :
+t3 := i + #1
+i := t3
+GOTO label0
+LABEL label2 :
+RETURN #0

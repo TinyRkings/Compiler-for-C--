@@ -1,0 +1,101 @@
+FUNCTION main :
+t1 := #6 + #6
+t2 := #11 * #1
+t0 := t1 - t2
+a := t0
+t3 := #7 - #4
+b := t3
+t6 := #3 + #4
+t8 := #5 * #6
+t7 := t8 / #3
+t5 := t6 + t7
+t4 := t5 - #4
+c := t4
+t10 := a + b
+t9 := t10 - c
+d := t9
+t12 := a + b
+t13 := c * #2
+t11 := t12 + t13
+e := t11
+t15 := a + b
+t14 := t15 + c
+f := t14
+g1 := #42
+i := #0
+t20 := a + b
+t19 := t20 + c
+t18 := t19 - d
+t17 := t18 - e
+t16 := t17 + f
+f := t16
+LABEL label0 :
+t21 := b - a
+IF t21 >= f GOTO label2
+LABEL label1 :
+t26 := i * #4
+t25 := g1 + t26
+t24 := t25 + #3
+t23 := t24 + #4
+t22 := t23 + #5
+g1 := t22
+t31 := f - b
+t32 := a * #2
+t29 := t31 + t32
+t30 := c * d
+t28 := t29 + t30
+t27 := t28 - f
+g := t27
+t34 := i + #1
+t33 := t34 + #0
+i := t33
+t36 := i + #3
+t35 := t36 + #1
+i := t35
+t38 := i - #2
+t37 := t38 - #2
+i := t37
+t42 := i / #3
+t41 := t42 * #3
+t39 := i - t41
+t46 := a - a
+t45 := t46 + b
+t44 := t45 - b
+t43 := t44 + c
+t40 := t43 - c
+IF t39 != t40 GOTO label4
+LABEL label3 :
+t48 := f + #1
+t47 := t48 + #1
+f := t47
+LABEL label4 :
+t50 := f - #2
+t49 := t50 + #1
+f := t49
+GOTO label0
+LABEL label2 :
+t52 := g1 - #2
+t51 := t52 + #3
+h := t51
+WRITE h
+i := g1
+LABEL label5 :
+t54 := #1200 + #22
+IF g1 < t54 GOTO label7
+LABEL label6 :
+t55 := g1 + #1024
+i := t55
+t56 := g1 - #1
+g1 := t56
+i := g1
+GOTO label5
+LABEL label7 :
+WRITE g1
+t58 := a + b
+a := t58
+t59 := a + b
+b := t59
+t60 := a + b
+c := t60
+WRITE c
+RETURN #0

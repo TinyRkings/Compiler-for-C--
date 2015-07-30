@@ -1,0 +1,27 @@
+FUNCTION convert :
+PARAM n
+IF n != #0 GOTO label1
+LABEL label0 :
+WRITE #0
+GOTO label2
+LABEL label1 :
+IF n != #1 GOTO label4
+LABEL label3 :
+WRITE #1
+GOTO label2
+LABEL label4 :
+t3 := n / #2
+ARG t3
+t2 := CALL convert
+t7 := n / #2
+t6 := t7 * #2
+t5 := n - t6
+WRITE t5
+LABEL label2 :
+RETURN #0
+FUNCTION main :
+READ t8
+x := t8
+ARG x
+t9 := CALL convert
+RETURN #0

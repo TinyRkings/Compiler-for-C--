@@ -1,0 +1,11 @@
+int main()
+ {
+ int a = -10;
+ int b = 30, c, x;
+ c = 20;
+ x = a * a - 4 * b * c;
+ write(x);
+  b = a * 2 ;
+ write(b);
+ return 0;
+}

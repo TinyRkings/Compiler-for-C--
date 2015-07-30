@@ -1,0 +1,6 @@
+FUNCTION main :
+DEC a 8
+t0 := &a + #4
+*t0 := #2
+t1 := &a + #4
+RETURN *t1

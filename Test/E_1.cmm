@@ -1,0 +1,17 @@
+struct point {
+int x, y;
+};
+
+ int sum(int sx, int sy)
+ {
+return sx + sy;
+}
+ int main()
+ {
+ struct point p;
+ p.x = 2;
+ p.y = 3;
+ write(sum(p.x, p.y));
+ return 0;
+}
+

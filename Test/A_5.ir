@@ -1,0 +1,13 @@
+FUNCTION sum :
+PARAM x
+PARAM y
+t0 := x + y
+RETURN t0
+FUNCTION main :
+a := #21
+b := #179
+ARG b
+ARG a
+t2 := CALL sum
+WRITE t2
+RETURN #0

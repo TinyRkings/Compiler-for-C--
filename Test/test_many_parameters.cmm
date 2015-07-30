@@ -1,0 +1,21 @@
+int print_all(int m1,int m2,int m3,int m4,int m5,int m6)
+{
+	write(m1);
+	write(m2);
+	write(m3);
+	write(m4);
+	write(m5);
+	write(m6);
+	return 0;
+}
+int main()
+{
+	int a=1;
+	int b=2;
+	int c=3;
+	int d=4;
+	int e=5;
+	int f=6;
+	print_all(a,b,c,d,e,f);
+	return 0;
+}

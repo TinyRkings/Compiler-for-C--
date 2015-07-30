@@ -1,0 +1,86 @@
+FUNCTION mod :
+PARAM modx
+PARAM mody
+t2 := modx / mody
+t1 := t2 * mody
+t0 := modx - t1
+RETURN t0
+FUNCTION printHexDigit :
+PARAM digit6
+IF digit6 >= #10 GOTO label1
+LABEL label0 :
+WRITE digit6
+GOTO label2
+LABEL label1 :
+t5 := #0 - digit6
+WRITE t5
+LABEL label2 :
+RETURN #0
+FUNCTION printHex :
+PARAM number5
+DEC a5 12
+j5 := #0
+LABEL label3 :
+IF j5 >= #3 GOTO label5
+LABEL label4 :
+ARG #16
+ARG number5
+t7 := CALL mod
+t8 := j5 * #4
+t6 := &a5 + t8
+*t6 := t7
+t9 := number5 / #16
+number5 := t9
+t10 := j5 + #1
+j5 := t10
+GOTO label3
+LABEL label5 :
+j5 := #2
+LABEL label6 :
+IF j5 < #0 GOTO label8
+LABEL label7 :
+t13 := j5 * #4
+t12 := &a5 + t13
+ARG *t12
+t11 := CALL printHexDigit
+t14 := j5 - #1
+j5 := t14
+GOTO label6
+LABEL label8 :
+RETURN #0
+FUNCTION perfect_num :
+i := #490
+LABEL label9 :
+IF i >= #500 GOTO label11
+LABEL label10 :
+sum := #0
+j := #1
+LABEL label12 :
+t15 := i / #2
+IF j > t15 GOTO label14
+LABEL label13 :
+ARG j
+ARG i
+t16 := CALL mod
+IF t16 != #0 GOTO label16
+LABEL label15 :
+t17 := sum + j
+sum := t17
+LABEL label16 :
+t18 := j + #1
+j := t18
+GOTO label12
+LABEL label14 :
+IF sum != i GOTO label18
+LABEL label17 :
+ARG i
+t19 := CALL printHex
+LABEL label18 :
+t20 := i + #1
+i := t20
+GOTO label9
+LABEL label11 :
+RETURN #0
+FUNCTION main :
+t21 := CALL perfect_num
+RETURN #0
