@@ -1,6 +1,5 @@
 #include "hash.h"
 
-int test_test_test_id=0;
 extern char*strdup(char*s);
 unsigned int hash_pjw(char* name)
 {
@@ -8,7 +7,6 @@ unsigned int hash_pjw(char* name)
 	for ( ; *name; ++name)
 	{
 		val = (val<< 2) + *name;
-		test_test_test_test();
 		if ( i = val& ~0x3fff) 
 			val = (val ^ (i>> 12)) & 0x3fff;
 	}
@@ -21,20 +19,11 @@ HashTable* initialTable(){
 		htable->hashTable[i].symbol = NULL;
 		htable->hashTable[i].next = NULL;
 	}
-	test_test_test_test();
 	for(i = 0; i < StackSize; i ++){
 		htable->stack[i].hnode = NULL;
 		htable->stack[i].next = NULL;
 	}
 	return htable;
-}
-void test_test_test_test()
-{
-	if(test_test_test_id==1)
-	{
-		printf("hhhhhhhh\n");
-		exit(0);
-	}
 }
 HashTable* initialFunTable(){
 	HashTable *htable=malloc(sizeof(HashTable));
@@ -91,7 +80,6 @@ void insertTable(HashTable *ht, symbol *symbol, int depth){
 	StackNode *snode = malloc(sizeof(StackNode));
 	hnode->symbol = symbol;
 	hnode->depth = depth;
-	test_test_test_test();
 	if(ht->hashTable[index].next == NULL){
 	//empty list
 		hnode->next = NULL;
@@ -123,7 +111,6 @@ void deleteTable(HashTable *ht, int depth){
 		ht->stack[depth].next = current->next;
 		index = hash_pjw(current->hnode->symbol->sym_name)/TableSize;
 		hnode = ht->hashTable[index].next;
-		test_test_test_test();
 		//delete the the first of hashnode
 		if(strcmp(current->hnode->symbol->sym_name, hnode->symbol->sym_name) == 0 && hnode->depth == depth){
 			ht->hashTable[index].next = hnode->next;

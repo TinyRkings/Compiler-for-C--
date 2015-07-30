@@ -13,22 +13,7 @@ int IR_number = 0;//the location of addressTable
 char* paramTable[MAXSIZE];
 char* addressTable[MAXSIZE];
 Operand idTable[MAXSIZE];
-int test_id=0;
-int test_id2=0;
-int test_id3=0;
-
-void test()
-{
-	if(test_id==1)
-		printf("hello!\n");
-}
-void test2()
-{
-	if(test_id2==1)
-		printf("error!\n");
-}
 int getArraySpace(Type type){
-	test();
 	if(type->kind == array){
 		return type->array.size * getArraySpace(type->array.elem);
 	}
@@ -69,11 +54,6 @@ InterCodes new_label(){
 	label->code.id = labelNum;
 	labelNum++;
 	return label;
-}
-void test3()
-{
-	if(test_id3==1)
-		printf("error!\n");
 }
 //create the code of goto statement according by the label number
 InterCodes new_goto(int i){
@@ -138,7 +118,6 @@ Operand optimizeExp(Node *exp){
 		return new_temp();
 }
 InterCodes connectCodes(int total, ...){
-	test();
 	va_list ap;
 	va_start(ap,total);
 	InterCodes ic1 = va_arg(ap, InterCodes); 
@@ -162,7 +141,6 @@ InterCodes connectCodes(int total, ...){
 	return ic1;
 }
 InterCodes translate_Cond(Node *p, InterCodes label_true, InterCodes label_false){
-	test2();
 	//Exp : Exp AND Exp
 	if(p->cnode.arity==3&&strcmp(p->cnode.children[1]->name, "AND")==0)
 	{
@@ -184,7 +162,6 @@ InterCodes translate_Cond(Node *p, InterCodes label_true, InterCodes label_false
 	{
 		Operand temp1 = optimizeExp(p->cnode.children[0]);
 		Operand temp2 = optimizeExp(p->cnode.children[2]);
-		test3();
 		Operand t1, t2; 
 		InterCodes c1, c2;
 		if(temp1->kind==TEMP){
@@ -264,7 +241,6 @@ InterCodes translate_Cond(Node *p, InterCodes label_true, InterCodes label_false
 		c2->code.ifgoto.relop = strdup("!=");
 		return connectCodes(3, c1, c2, new_goto(label_false->code.id));
 	}
-	test();
 }
 InterCodes translate_Exp(Node *p, Operand place){
 	//Exp : INT
@@ -285,7 +261,6 @@ InterCodes translate_Exp(Node *p, Operand place){
 	else if(strcmp(p->cnode.children[0]->name, "FLOAT") == 0){
 		if(place==NULL)
 			return NULL;
-		test2();
 		InterCodes codes = malloc(sizeof(struct InterCodes_));
 		codes->prev = codes->next = codes;
 		codes->code.kind = ASSIGN;
@@ -294,7 +269,6 @@ InterCodes translate_Exp(Node *p, Operand place){
 		rightOp->kind = FCONSTANT;
 		rightOp->fvalue = p->cnode.children[0]->float_value;
 		codes->code.assign.right = rightOp;
-		test3();
 		return codes;
 	}
 	//Exp : ID
@@ -305,7 +279,6 @@ InterCodes translate_Exp(Node *p, Operand place){
 		InterCodes codes = malloc(sizeof(struct InterCodes_));
 		codes->prev = codes->next = codes;
 		codes->code.kind = ASSIGN;
-		test();
 		codes->code.assign.left = place;
 		codes->code.assign.right = lookup(p->cnode.children[0]->id_value);
 		return codes;
@@ -434,7 +407,6 @@ InterCodes translate_Exp(Node *p, Operand place){
 		InterCodes codes = malloc(sizeof(struct InterCodes_));
 		codes->prev = codes->next = codes;
 		Arguments arg_list = NULL;
-		test();
 		InterCodes codes1 = translate_Args(p->cnode.children[2], &arg_list);
 		if(strcmp(p->cnode.children[0]->id_value, "write") == 0){
 			codes->code.kind = WRITE;
@@ -517,7 +489,6 @@ InterCodes translate_Exp(Node *p, Operand place){
 	{
 		if(place==NULL)
 			return NULL;
-		test2();
 		InterCodes codes1, codes2;//code1:exp1   code2:exp2
 		Operand t1, t2;
 		Operand temp1 = optimizeExp(p->cnode.children[0]);
@@ -587,7 +558,6 @@ InterCodes translate_Exp(Node *p, Operand place){
 		{
 			codes3->code.binop.op1 = t1;
 			codes3->code.binop.op2 = t2;
-			test2();
 			codes3->code.binop.result = place;
 			if(strcmp(p->cnode.children[1]->name, "PLUS") == 0)
 				codes3->code.kind = ADD;
@@ -701,7 +671,6 @@ InterCodes translate_Stmt(Node *p){
 		c2->prev = c2->next = c2;
 		c2->code.kind = RET;
 		c2->code.assign.right = t_point;
-		test();
 		return connectCodes(2, c1, c2);
 	}
 	//Stmt : IF LP Exp RP Stmt
@@ -815,7 +784,6 @@ InterCodes translate_ExtDefList(Node*p)
 		return NULL;
 }
 InterCodes translate_VarDec(Node *specifier, Node *p, int param){
-	test2();
 	//VarDec : VarDec LB INT RB
 	if(p->cnode.arity == 4){
 		InterCodes c1 = malloc(sizeof(struct InterCodes_));

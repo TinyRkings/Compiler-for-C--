@@ -5,15 +5,12 @@ extern char*strdup(char*s);
 int currentDepth = 0;
 int funlineno = 0;
 int semantic_error_info=0;
-int test_test_id1=0;
 
 void semanticCheck(Node *p){
 	if(strcmp(p->name,"ExtDef") == 0){
-		test_test1();
 		symbol *sym_temp = (symbol *)malloc(sizeof(symbol));
 		if(strcmp(p->cnode.children[1]->name,"SEMI") == 0){
 		//ExtDef->Specifier SEMI:  		structure definition
-			test_test1();
 			if(strcmp(p->cnode.children[0]->cnode.children[0]->name,"StructSpecifier") == 0){
 				if((p->cnode.children[0]->cnode.children[0]->cnode.arity != 5))
 					printf("Error type 1 at line %d : 这里只能定义结构，而不能使用结构，因为后跟分号而不是变量名",p->cnode.children[0]->lineno);
@@ -43,7 +40,6 @@ void semanticCheck(Node *p){
 				if(hnode != NULL)
 					semantic_error(4, p->cnode.children[1]->lineno, sym_temp->sym_name);
 				else{
-					test_test1();
 					insertTable(funcTable, sym_temp, 0);
 					//CompSt : LC DefList StmtList RC
 					semanticCheck(p->cnode.children[2]->cnode.children[1]); //check DefList
@@ -89,7 +85,6 @@ void semanticCheck(Node *p){
 	}
 	else if(strcmp(p->name,"Exp") == 0){
 		checkExp(p);
-		test_test1();
 		return;
 	}
 	else{
@@ -102,22 +97,12 @@ void semanticCheck(Node *p){
 		return;
 	}
 }
-
-void test_test1()
-{
-	if(test_test_id1==1)
-	{	
-		printf("error\n");
-		exit(0);
-	}
-}
 Type basicType(Node *specifier_node){
 	Type currentType = malloc(sizeof(struct Type_));
 	currentType->kind = basic;
 	if(strcmp(specifier_node->other_terminal, "int") == 0)
 	{//ID: int
 		currentType->basic = 0;
-		test_test1();
 	}
 	else if(strcmp(specifier_node->other_terminal, "float") == 0)
 	//ID: float
@@ -140,7 +125,6 @@ Type arrayType(Node *p, char *array_id, Node *specifier_nextnode){
 	//Specifier : TYPE
 	else if(strcmp(specifier_nextnode->name, "TYPE") == 0){
 		temp->array.elem = basicType(specifier_nextnode);
-		test_test1();
 	}
 	temp->array.size = p->cnode.children[2]->int_value;
 	Node *array_node = p->cnode.children[0];
@@ -148,7 +132,6 @@ Type arrayType(Node *p, char *array_id, Node *specifier_nextnode){
 		Type new_type = malloc(sizeof(struct Type_));
 		new_type->kind = array;
 		new_type->array.elem = temp;
-		test_test1();
 		new_type->array.size = array_node->cnode.children[2]->int_value;
 		temp = new_type;
 		array_node = array_node->cnode.children[0];
@@ -165,7 +148,6 @@ Type structureType(Node *specifier_node){
 	if(specifier_node->cnode.arity == 5){
 		currentType->structure = structureField(specifier_node->cnode.children[3]);
 		FieldList currentField = currentType->structure;
-		test_test1();
 		while(currentField != NULL){
 			symbol *symtemp = malloc(sizeof(symbol));
 			symtemp->sym_name = currentField->name;
@@ -245,7 +227,6 @@ FieldList sameSpecifierField(Node *p, Node *specifier_node){
 //p : DefList
 FieldList structureField(Node *p){
 	FieldList temp = malloc(sizeof(struct FieldList_));
-	test_test1();
 	if(p->cnode.arity == 0){
 		return NULL;
 	}
@@ -286,7 +267,6 @@ symbol *VarDec(Node *p, Node *specifier_node){
 		if(strcmp(specifier_node->name, "TYPE") == 0){
 		//Specifier->TYPE:      ID:basic(int or float)
 			sym_temp->type = basicType(specifier_node);
-			test_test1();
 		}
 		else if(strcmp(specifier_node->name, "StructSpecifier") == 0){
 		//Specifier->StructSpecifier
@@ -319,7 +299,6 @@ void addSym_ExtDecList(Node *p, Node *specifier_node){
 	//ExtDecList->VarDec	
 		symbol *newSym = VarDec(p->cnode.children[0], specifier_node);
 		if(newSym != NULL){
-			test_test1();
 			HashNode *hnode = searchTable(varTable, newSym->sym_name, 0);
 			if(hnode != NULL)
 				semantic_error(3, p->cnode.children[0]->lineno, newSym->sym_name);
@@ -380,11 +359,9 @@ void addSym_DecList(Node *p, Node *specifier_node){
 int paraList(Node *p, Type_Kind paraType[10]){
 	Node *next = p;
 	Node *specifier_node;
-	test_test1();
 	int paraNum = 0;
 	while(1){
 		specifier_node = next->cnode.children[0]->cnode.children[0]->cnode.children[0];
-		test_test1();
 		symbol *para_sym = VarDec(next->cnode.children[0]->cnode.children[1], specifier_node);
 		if(para_sym != NULL){
 			HashNode *hnode = searchTable(varTable, para_sym->sym_name, currentDepth);
@@ -417,7 +394,6 @@ symbol* FunDec(Node *p, Node *specifier_node){
 		if(struct_node == NULL){
 			//函数的返回值是结构但该结构未定义
 			semantic_error(17, p->cnode.children[0]->lineno, p->cnode.children[0]->id_value);
-			test_test1();
 			return NULL;
 		}
 		fun_sym->return_type = struct_node->symbol->type;
@@ -439,7 +415,6 @@ Type arrayExp(Node *p){
 //Exp->Exp LB Exp RB	
 	if(p->cnode.arity != 4 || strcmp(p->cnode.children[0]->name, "Exp") != 0){
 		if(strcmp(p->cnode.children[0]->name, "ID") == 0){
-			test_test1();
 			HashNode *hnode = searchTable(varTable, p->cnode.children[0]->id_value, currentDepth);
 			if(hnode == NULL){	
 				semantic_error(1, p->cnode.children[0]->lineno, p->cnode.children[0]->id_value);
@@ -453,7 +428,6 @@ Type arrayExp(Node *p){
 	}
 		
 	Type ex2_type = checkExp(p->cnode.children[2]);
-	test_test1();
 	if(ex2_type->kind != basic || ex2_type->basic != 0){
 		semantic_error(12, p->cnode.children[0]->lineno, " ");
 		return NULL;
@@ -495,7 +469,6 @@ Type checkExp(Node *p){
 	if(strcmp(p->cnode.children[0]->name, "ID") == 0 && p->cnode.arity == 1){
 	//Exp->ID
 		HashNode *hnode = searchTable(varTable, p->cnode.children[0]->id_value, currentDepth);
-		test_test1();
 		if(hnode == NULL){
 			semantic_error(1, p->cnode.children[0]->lineno, p->cnode.children[0]->id_value);
 			return NULL;
