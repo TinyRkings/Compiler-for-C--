@@ -9,5 +9,7 @@ parser : the executable program for the compiler
 Readme.md : the document to help understand the project  
 ###Additional application for compiling the program   
 flex bison
-###how to run the procedure  
+###How to run the procedure  
 In the Code catalog,you can use the makefile to compiler the all codes,it will generate the executable program named parser  
+###Additional help  
+if you have any problem, you can email to me,email address tinylouss@gmail.com
